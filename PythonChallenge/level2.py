@@ -1229,3 +1229,5 @@ for x in rarechar:
     msg += x
 
 print (msg)
+
+# Authorized Solutions: http://wiki.pythonchallenge.com/index.php?title=Level2:Main_Page
