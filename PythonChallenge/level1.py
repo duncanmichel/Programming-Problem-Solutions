@@ -28,3 +28,5 @@ trantab = maketrans(intab, outtab)
 
 #print(ciphertext.translate(trantab))
 """
+
+# Authorized Solutions: http://wiki.pythonchallenge.com/index.php?title=Level1:Main_Page
