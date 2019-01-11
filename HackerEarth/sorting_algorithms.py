@@ -116,3 +116,54 @@ for count in range(0,size):
     answer[count] = numlist.index(originalnumlist[count]) + 1
 
 print(' '.join(list(map(str,answer))))
+
+
+"""
+Merge Sort
+
+Time Complexity:
+The list of size N is divided into a max of log N parts, and the merging of all sublists into a single list takes O(N) time, the worst 
+case run time of this algorithm is O(N Log N)
+
+Given an array A on size N, you need to find the number of ordered pairs (i, j) such that i < j and A[i] > A[j].
+Input:
+First line contains one integer, N, size of array.
+Second line contains N space separated integers denoting the elements of the array A.
+Output:
+Print the number of ordered pairs (i, j) such that i < j and A[i] > A[j].
+Constraints:
+1 \le N \le 10^6
+1 \le A[i] \le 10^6
+"""
+
+#Merge Sort (Recursive)
+def merge(left,right):
+    #print("[DEBUG:merge] Merging " + str(left) + " and " + str(right))
+    result = []
+    for l_item in left:
+        if (right != []):
+            while (l_item > right[0]):
+                result.append(right.pop(0))
+                if right == []:
+                    break
+        result.append(l_item)
+    if right != []:
+        for item in right:
+            result.append(item)
+    return result
+
+def mergesort(nlist,end): #start = 0
+    mid = int(end/2)
+    if end == 0:
+        return nlist
+    else:
+        return merge(mergesort(nlist[:mid+1],mid),mergesort(nlist[mid+1:],end-(mid+1)))
+        
+size = int(input())
+numlist = list(map(int,input().split()))
+answer = mergesort(numlist,size-1)
+print(answer)
+
+#Merge Sort
+
+
