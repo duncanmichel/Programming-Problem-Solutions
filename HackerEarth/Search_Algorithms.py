@@ -75,3 +75,33 @@ while (numquery > 0):
     else:
         print(-1)
     numquery -= 1
+
+    
+"""
+Ternary Search (incomplete)
+You have been given an Unimodal function: 
+ f(x) = 2x^2 -12x + 7 
+with N intervals. For each interval you will be given two integer values l and r , where l \le r and you need to find the minimum value of f(x) where x will be in the range [l,r] (both inclusive).
+
+Input:
+The first line will consists of one integer N denoting the number of intervals. 
+In next N lines, each line contains 2 space separated integers, l and r denoting the range of interval.
+
+Output:
+Print N lines, where i_{th} line denotes the minimum value of f(x), where x will be in range [l_i, r_i] 
+"""
+def func(x=0):
+    return 2*x*x + -12*x +7; #unimodal function
+
+
+n = int(input())
+for i in range(0,n):
+    [l,r] = map(int,input().split())
+    for j in range(0,200):
+        mid1 = int((l*2+r)/3)
+        mid2 = int((l+2*r)/3)
+        if(func(mid1) < func(mid2)):
+            r = mid2
+        else: 
+            l = mid1
+    print(func(l)) 
