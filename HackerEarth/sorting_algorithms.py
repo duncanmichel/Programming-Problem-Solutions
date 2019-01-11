@@ -1,7 +1,8 @@
 """
 Bubble Sort
 Complexity: 
-The complexity of bubble sort is O(n**2) in both worst and average cases, because the entire array needs to be iterated for every element.
+The complexity of bubble sort is O(n**2) in both worst and average cases, because the entire array needs to be iterated for every 
+element.
 
 You have been given an array A of size N . you need to sort this array non-decreasing oder using bubble sort. However, you do not 
 need to print the sorted array . You just need to print the number of swaps required to sort this array using bubble sort
@@ -72,3 +73,46 @@ for x in range(0,size):
 print(' '.join(list(map(str,numlist))))
 
 
+"""
+Insertion Sort
+
+Time Complexity:
+In worst case,each element is compared with all the other elements in the sorted array. For N elements, there will be N^2 comparisons. 
+Therefore, the time complexity is O(N^2)
+
+You have been given an A array consisting of N integers. All the elements in this array are guaranteed to be unique. For each position 
+i in the array A you need to find the position A[i] should be present in, if the array was a sorted array. You need to find this for 
+each i and print the resulting solution.
+Input Format:
+The first line contains a single integer N denoting the size of array A. The next line contains N space separated integers denoting 
+the elements of array A.
+Output Format:
+Print N space separated integers on a single line , where the Ith integer denotes the position of A[i] if this array were sorted.
+Constraints:
+1 \le N \le 100
+1 \le A[i] \le 100
+"""
+
+size = int(input())
+originalnumlist = list(map(int,input().split()))
+numlist = []
+answer = []
+for item in originalnumlist:
+    numlist += [item] # create a copy
+    answer += [item] # create a copy
+temp = 0
+
+# --- Begin Insertion Sort Logic --- #
+for x in range(0,size):
+    temp = numlist[x]
+    place = x
+    while (place > 0) and (numlist[place-1] > temp):
+        numlist[place] = numlist[place-1]
+        place -= 1
+    numlist[place] = temp
+# --- End Insertion Sort Logic --- #
+    
+for count in range(0,size):
+    answer[count] = numlist.index(originalnumlist[count]) + 1
+
+print(' '.join(list(map(str,answer))))
