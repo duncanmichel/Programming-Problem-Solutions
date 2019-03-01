@@ -46,6 +46,26 @@ Runtime: 40 ms, faster than 47.57% of Python3 online submissions for Hamming Dis
 Memory Usage: 13.3 MB, less than 5.84% of Python3 online submissions for Hamming Distance.
 """
 
+#Alt Solution, based on fastest (but not faster in LeetCode test environment)
+class Solution:
+    def hammingDistance(self, x: int, y: int) -> int:
+        xbin=bin(x).lstrip('0b')        
+        ybin=bin(y).lstrip('0b')        
+        q=0
+        if len(xbin)<len(ybin):
+            a=xbin.rjust(len(ybin),'0')
+            b=ybin
+        elif len(xbin)>len(ybin):
+            a=ybin.rjust(len(xbin),'0')
+            b=xbin
+        else:
+            a=xbin
+            b=ybin
+        for i in range(0,len(a)):
+            if a[i]!=b[i]:
+                q += 1
+        return q
+
 """
 Fastest Solution:
 class Solution:
