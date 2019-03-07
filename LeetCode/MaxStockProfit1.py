@@ -69,10 +69,10 @@ class Solution:
 Fastest Solution (36ms)
 class Solution:
     def maxProfit(self, prices):
-        """
+        '''
         :type prices: List[int]
         :rtype: int
-        """
+        '''
         if len(prices) < 2:
             return 0
         min_p = prices[0]
