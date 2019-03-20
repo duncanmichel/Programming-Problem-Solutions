@@ -50,7 +50,7 @@ Memory Usage: 13.2 MB, less than 6.31% of Python3 online submissions for Longest
 """
 
 """
-Fastest Solution
+Fastest Solution (32ms):
 class Solution:
     def longestPalindrome(self, s: 'str') -> 'int':
         ctr=collections.Counter(s)
