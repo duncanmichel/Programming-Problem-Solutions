@@ -57,6 +57,50 @@ Output:
 1 2 9 4 1 2 9 4 1 2 9 4 1 3 2 4
 """
 
+#code
+def printMap(row:int,col:int,pixels:list):
+    upperBound = col
+    lowerBound = 0
+    for i in range(0,row):
+        print(pixels[lowerBound:upperBound])
+        lowerBound = upperBound
+        upperBound += col
+
+def floodFill():
+    [row,col] = list(map(int,input().split()))
+    pixelMap = list(map(int,input().split()))
+    [x,y,newColor] = list(map(int,input().split()))
+    oldColor = pixelMap[(x*col)+y]
+    #isChanged = [False]*len(pixelMap)
+    
+    def recursiveFill(x:int,y:int):
+        #print("Recursively checking x",x,"y",y,"cur Color",pixelMap[(x*col)+y])#,"isChanged",isChanged[(x*col)+y])
+        if pixelMap[(x*col)+y] == oldColor: #(not isChanged[(x*col)+y]) and pixelMap[(x*col)+y] == oldColor:
+            pixelMap[(x*col)+y] = newColor
+            #isChanged[(x*col)+y] = True
+            if x+1 < row:
+                recursiveFill(x+1,y)
+            if x-1 >= 0:
+                recursiveFill(x-1,y)
+            if y+1 < col:
+                recursiveFill(x,y+1)
+            if y-1 >= 0:
+                recursiveFill(x,y-1)
+    
+    #pixelMap[(x*(col))+y] = newColor
+    recursiveFill(x,y)
+    
+    print("Answer for case ",test_case)
+    #printMap(row,col,pixelMap)
+    print(" ".join(map(str,pixelMap)))
+
+num_test_cases = int(input())
+
+for test_case in range(0,num_test_cases):
+    floodFill()
+
+
+"""
 #Not working. I think I'm running into a problem with the truth table, possibly due to multiple accesses to the same array recursively
 def generatePixels(col:int,row:int,starter:list):
     newMap = []
@@ -71,7 +115,7 @@ def generatePixels(col:int,row:int,starter:list):
 def generateTruthMap(col:int,row:int):
     return [[False]*row]*col
 
-"""
+'''
 def recursiveFill(x:int,y:int,oldColor:int,newColor:int,pixels:list):
     if pixels == None or pixels[x] == None:
         print("pixels becomes unstable")
@@ -92,7 +136,9 @@ def recursiveFill(x:int,y:int,oldColor:int,newColor:int,pixels:list):
             return pixels
     except Exception as e:
         print("Failed to fill pixel x:"+str(x)+" y:"+str(y)+" with ERROR:"+ str(e))
-"""
+'''        
+
+
 def solve():
     [col,row] = list(map(int,input().split()))
     initialList = list(map(int,input().split()))
@@ -125,3 +171,4 @@ num_test_cases = int(input())
 
 for test_case in range(0,num_test_cases):
     solve()
+"""
