@@ -14,6 +14,28 @@ Output: 0
 Explanation: In this case, no transaction is done, i.e. max profit = 0.
 """
 
+#updated Solution, to prep for part II:
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        length = len(prices)
+        profit = 0
+        
+        if length == 0:
+            return profit
+        
+        minBuy = prices[0]
+        for i in range(0,length):
+            profit = max(profit,prices[i]-minBuy)
+            minBuy = min(minBuy,prices[i])
+                
+        return profit
+      
+"""
+My Solution:
+Runtime: 48 ms, faster than 57.06% of Python3 online submissions for Best Time to Buy and Sell Stock.
+Memory Usage: 13.8 MB, less than 5.08% of Python3 online submissions for Best Time to Buy and Sell Stock.
+"""
+
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         length = (len(prices))
