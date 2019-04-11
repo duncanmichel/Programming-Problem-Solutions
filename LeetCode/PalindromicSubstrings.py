@@ -13,24 +13,43 @@ Note:
 The input string length won't exceed 1000.
 """
 
+#Working! I realized that I don't have to keep checking the entire string if all but the outer two characters
+#contain a valid palindrome
+class Solution:        
+    def countSubstrings(self, s: str) -> int:
+        count,lastIndex = len(s),len(s)-1
+        for index in range(count): #for each char, bubble up as long as palindromes are found
+            startIndex,endIndex = index-1,index+1 #start on either side [start][index][end]
+            while startIndex >= 0 and endIndex <= lastIndex and s[startIndex]==s[endIndex]:       
+                count += 1
+                startIndex -= 1
+                endIndex += 1
+            startIndex,endIndex = index,index+1 #start with two characters [index][next]
+            while startIndex >= 0 and endIndex <= lastIndex and s[startIndex]==s[endIndex]:
+                count += 1
+                startIndex -= 1
+                endIndex += 1       
+        return count
+
+"""
+My Solution:
+Runtime: 116 ms, faster than 89.13% of Python3 online submissions for Palindromic Substrings.
+Memory Usage: 13.2 MB, less than 33.54% of Python3 online submissions for Palindromic Substrings.
+"""
+    
 #Passes 128/130 tests, but fails on large input
 class Solution:
     def isPalindrome(self,test_str:str):
         stack,size = [],len(test_str) 
-        odd = size%2 == 1
-        halfway = size//2
-        #print("size is ",size,"halfway is ",halfway,"odd is ",odd)
+        halfway,odd = size//2, size%2 == 1
         if size is 1:
             return True
         for char_index in range(size):
             if char_index < halfway:
-                #print('\t[check] appending',test_str[char_index])
                 stack.append(test_str[char_index])
             elif char_index == halfway and odd:
-                #print('\t[check] ignoring',test_str[char_index])
                 pass
             else:
-                #print('\t[check] comparing',test_str[char_index],'to top of stack')
                 if stack.pop() != test_str[char_index]:
                     return False
         return True
@@ -58,7 +77,28 @@ class Solution:
         
         return count
     
-#Passes 128/130 tests, but fails on large input    
+#Passes 128/130 tests, but fails on large input   
+class Solution:
+    def isPalindrome(self,test_str:str):
+        stack,size = [],len(test_str) 
+        odd = size%2 == 1
+        halfway = size//2
+        #print("size is ",size,"halfway is ",halfway,"odd is ",odd)
+        if size is 1:
+            return True
+        for char_index in range(size):
+            if char_index < halfway:
+                #print('\t[check] appending',test_str[char_index])
+                stack.append(test_str[char_index])
+            elif char_index == halfway and odd:
+                #print('\t[check] ignoring',test_str[char_index])
+                pass
+            else:
+                #print('\t[check] comparing',test_str[char_index],'to top of stack')
+                if stack.pop() != test_str[char_index]:
+                    return False
+        return True
+    
     def countSubstrings(self, s: str) -> int:
         count,startIndex,endIndex,lastIndex,size = 0,0,1,len(s)-1,len(s)
         if size == 0:
@@ -85,12 +125,62 @@ class Solution:
         else:
             return 0 + self.countSubstrings(s[1:]) + self.countSubstrings(s[:len(s)-1]) - self.countSubstrings(s[1:len(s)-1])
 
-"""
-My Solution:
+
 
 """
-
-"""
-Fastest Solution:
-
+Fastest Solution (36ms):
+class Solution:
+    def countSubstrings(self, s: 'str') -> 'int':
+        if not s:
+            return 0
+        res = 0
+        i = 0
+        while i < len(s):
+            j = i + 1
+            while j < len(s) and s[j] == s[i]:
+                j += 1
+            res += (j-i) * (j-i+1) // 2
+            left = i - 1
+            right = j
+            while left >= 0 and right < len(s) and s[left] == s[right]:
+                left -= 1
+                right += 1
+                res += 1
+            i = j
+        return res
+        
+Smallest Memory (12180 kb):
+class Solution:
+    # This approach uses an inward outward approach for finding all the palindromes in a substring
+    def countSubstrings(self, s: 'str') -> 'int':
+        N = len(s)
+        ans = 0 
+        
+        # There are 2N - 1 center, N for the letter in the string plus N - 1 for the 
+        # spaces in between each string
+        for center in range(2*len(s) - 1):
+            left = int(center / 2) # compute the left index
+            right = left + center % 2 # if center is even the right will be equal to the left
+                                      # other wise the right index will be offset by one
+            
+            while left >= 0 and right < N and s[left] == s[right]: # check if indexes are out of bounds
+                                                                    # and makes sure the character on both sides
+                                                                    # of the center are equal
+                ans += 1
+                left -= 1
+                right += 1
+        return ans
+            
+            
+    def countSubstrings2(self, s: 'str') -> 'int':
+        
+        count = 0
+        #print(s[0:3])
+        for i in range(len(s)):
+            for j in range(i+1,len(s)+1):
+                rev_s = ''.join(reversed(s[i:j]))
+                if s[i:j] == rev_s:
+                    count += 1
+        
+        return count
 """
