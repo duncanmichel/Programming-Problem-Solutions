@@ -9,6 +9,40 @@ Follow up:
 If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
 """
 
+#Finally working, but really slow. Slightly greedy optimization 
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        #best = float('-inf')
+        best,size = nums[0],len(nums)
+        
+        if size == 1:
+            return best
+        
+        #base = {i:0 for i in range(size)}
+        #memo = dict(base)
+        memo = {i:0 for i in range(size)}
+        
+        memo[0] = best
+        for endIndex in range(1,size):
+            memo[endIndex] = memo[endIndex-1]+nums[endIndex]
+            best = max(best,memo[endIndex])
+                
+        for firstIndex in range(1,size):
+            if nums[firstIndex] > memo[firstIndex]:
+                memo[firstIndex] = nums[firstIndex]
+                for endIndex in range(firstIndex+1,size):
+                    memo[endIndex] = memo[endIndex-1]+nums[endIndex]
+                    best = max(best,memo[endIndex])
+                best = max(best,memo[firstIndex])
+        
+        return best
+
+"""
+My Solution
+Runtime: 600 ms, faster than 5.05% of Python3 online submissions for Maximum Subarray.
+Memory Usage: 15 MB, less than 5.50% of Python3 online submissions for Maximum Subarray.
+"""
+
 # only 200 of 202 test cases - O[N^2] solution
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
@@ -101,15 +135,70 @@ class Solution:
         
         return ans
 
-"""
-My Solution
 
-"""
 
 """
-Fastest Solution
+Fastest Solution (36ms) [O(N)]:
+class Solution(object):
+    def maxSubArray(self, nums):
+        '''
+        :type nums: List[int]
+        :rtype: int
+        '''
+        maxSum = -inf
+        i = j = 0 # sliding window
+        numsLen = len(nums)
+        while i < numsLen:
+            currentSum = 0
+            while j < numsLen:
+                currentSum += nums[j]
+                if currentSum > maxSum:
+                    maxSum = currentSum
+                if currentSum<0:
+                    j+=1
+                    break
+                j += 1
+            i = j
+        return maxSum
 
+Alt Fastest Solution (44ms):
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        if not nums: return 0
+        currSum = largestSum = nums[0]
+        for x in nums[1:]:
+            currSum = max(x, currSum + x)
+            largestSum = max(largestSum, currSum)
+        return largestSum
 
-Smallest Memory
+Alt Fastest Solution (52ms) [DP Solution]:
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        n = len(nums)
+        R = [0 for _ in range(n)]
+        
+        R[0] = max(0, nums[0])
+        maxSum = nums[0]
+        
+        for i in range(1, n):
+            R[i] = max(R[i-1] + nums[i], nums[i])
+            maxSum = max(maxSum, R[i])
+        
+        return maxSum
 
+Smallest Memory (12508 kb):
+class Solution:
+    def maxSubArray(self, nums: 'List[int]') -> 'int':
+        leftIndex = rightIndex = 0
+        tmpMax = finalMax = nums[0]
+        for i in range(1, len(nums)):
+            if (tmpMax<0):
+                leftIndex = rightIndex = i
+                tmpMax = nums[i]
+            else:
+                tmpMax += nums[i]
+            if (finalMax < tmpMax):
+                finalMax = tmpMax
+                rightIndex = i
+        return finalMax
 """
