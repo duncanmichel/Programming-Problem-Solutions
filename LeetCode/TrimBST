@@ -60,6 +60,49 @@ class Solution(object):
 
 """
 My Solution:
-Runtime: 44 ms
-Memory Usage: 19.6 MB
+Runtime: 44 ms, faster than 85.93% of Python online submissions for Trim a Binary Search Tree.
+Memory Usage: 19.7 MB, less than 5.13% of Python online submissions for Trim a Binary Search Tree.
+"""
+
+"""
+Fastest Solution (40ms):
+class Solution(object):
+    def trimBST(self, root, L, R):
+        if  not root:
+            return None
+        if root.val < L:
+            return self.trimBST(root.right,L,R)
+        elif root.val > R:
+            return self.trimBST(root.left,L,R)
+        else:
+            root.left = self.trimBST(root.left,L,R)
+            root.right = self.trimBST(root.right,L,R)
+        return root
+
+Smallest Memory (14956 kb):
+class Solution(object):
+    def helper(self, start, L, R):
+        if not start:
+            return None
+        if L <= start.val <= R:
+            start.left = self.helper(start.left, L, R)
+            start.right = self.helper(start.right, L, R)
+            return start
+        elif start.val > R:
+            start.right = None # no need to check right tree, for this case
+            start.left = self.helper(start.left, L, R)
+            if not start.left and not start.right:
+                return None
+            else:
+                return start.left                
+        elif start.val < L:
+            start.left = None # no need to check right tree
+            start.right = self.helper(start.right, L, R)
+            if not start.left and not start.right:
+                return None
+            else:
+                return start.right
+    
+    def trimBST(self, root, L, R):        
+        return self.helper(root, L, R)
 """
