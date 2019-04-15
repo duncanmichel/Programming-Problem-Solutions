@@ -1,5 +1,6 @@
 """
 Code Chef problem
+https://www.codechef.com/DRI22019/problems/DIC007
 Razo  is a brilliant student in maths. One day his mother asked him about his rank in his class, but he didn't like the school's system 
 of ranking so he refused to give the answer. Help Razo's mother to find the rank of his son. School has strange way of ranking the 
 students. They rank students according to lexicographical order of their surnames.
