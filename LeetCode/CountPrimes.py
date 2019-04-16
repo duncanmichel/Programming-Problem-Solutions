@@ -45,6 +45,38 @@ class Solution:
 #Runtime: 784 ms, faster than 42.06% of Python3 online submissions for Count Primes.
 #Memory Usage: 30.7 MB, less than 50.72% of Python3 online submissions for Count Primes.
 
+#hashmap solution, which ironically is currently performing slower than an indexed array
+class Solution:
+    def countPrimes(self, n: int) -> int:
+        def isPrime(x):
+            if x == 1: return False
+            for i in range(2,int(math.sqrt(x))+1):
+                if x%i == 0:
+                    return False
+            return True
+        
+        sieve = {x:True for x in range(2,n)}
+        sieve[0],sieve[1],count,num,coef = False,False,0,0,1
+            
+        for i in range(2,int(math.sqrt(n))+1):
+            num,coef = i*i,i
+            if not sieve[i]:
+                continue
+            while num < n:                
+                sieve[num] = False
+                coef += 1
+                num = i*coef   
+                
+        for x in sieve.keys():
+            if sieve[x]:
+                count += 1
+            
+        return count
+"""
+Runtime: 1580 ms, faster than 20.70% of Python3 online submissions for Count Primes.
+Memory Usage: 221 MB, less than 5.46% of Python3 online submissions for Count Primes.
+"""
+
 """
 My Sieve of Erastothenes Solution:
 
