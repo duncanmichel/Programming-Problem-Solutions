@@ -54,3 +54,43 @@ for name in studentArray:
         rank += 1
 #print(studentArray)
 print(" ".join(map(str,range(rank,numStudents+2))))
+
+'''
+Accepted Solution:
+# cooking
+n = int(input())
+names = []
+
+for nIndex in range(n):
+    names.append(input())
+
+raza = input()
+raza_len = len(raza)
+min_rank = 1
+max_rank = n+1
+
+# for name in names:
+#     if raza_len > len(name):
+#         min_rank = min_rank + 1
+#     elif raza_len < len(name):
+#         max_rank = max_rank - 1
+#     else:
+#         min_name = name.replace('*', 'a')
+#         max_name = name.replace('*', 'z')
+#         if raza < min_name:
+#             max_rank = max_rank - 1
+#         elif raza > max_name:
+#             min_rank = min_rank + 1
+
+for name in names:
+    min_name = name.replace('*', 'a')
+    max_name = name.replace('*', 'z')
+    if raza < min_name:
+        max_rank = max_rank - 1
+    elif raza > max_name:
+        min_rank = min_rank + 1
+            
+possible_ranks = list(range(min_rank, max_rank+1))
+# print(min_rank, max_rank)
+print(*possible_ranks)
+'''
