@@ -14,6 +14,20 @@ https://leetcode.com/problems/factorial-trailing-zeroes/submissions/
 #https://leetcode.com/problems/factorial-trailing-zeroes/discuss/52371/My-one-line-solutions-in-3-languages
 #https://leetcode.com/problems/factorial-trailing-zeroes/discuss/52399/My-python-solution-in-O(1)-space-O(logN)-time
 
+class Solution(object):
+    def trailingZeroes(self, n):        
+        ans = 0
+        while n > 0:
+            ans += n//5
+            n //= 5
+        return ans
+
+"""
+My Solution:
+Runtime: 24 ms, faster than 63.49% of Python online submissions for Factorial Trailing Zeroes.
+Memory Usage: 11.7 MB, less than 5.21% of Python online submissions for Factorial Trailing Zeroes.
+"""
+
 #Algorithmically accurate, but too slow
 class Solution:
     def trailingZeroes(self, n: int) -> int:
@@ -87,99 +101,14 @@ class Solution:
             print("tens",tens,"fives",fives)
         #print("tens",tens,"fives",fives)
         return tens+fives
-        
-
-1808548329
-7392
-
-checking 2 tens 0 fives 0
-checking 3 tens 0 fives 0
-checking 4 tens 0 fives 0
-checking 5 tens 0 fives 1
-checking 10 tens 1 fives 1
-checking 15 tens 1 fives 2
-checking 20 tens 2 fives 2
-checking 25 memo check in fives 5
-tens 2 fives 4
-checking 30 tens 3 fives 4
-checking 35 tens 3 fives 5
-checking 40 tens 4 fives 5
-checking 45 tens 4 fives 6
-checking 50 tens 5 fives 7
-checking 55 tens 5 fives 8
-checking 60 tens 6 fives 8
-checking 65 tens 6 fives 9
-checking 70 tens 7 fives 9
-checking 75 memo check in fives 15
-tens 7 fives 12
-checking 80 tens 8 fives 12
-checking 85 tens 8 fives 13
-checking 90 tens 9 fives 13
-checking 95 tens 9 fives 14
-checking 100 memo check in tens 10
-tens 11 fives 14
-
-checking 2 tens 0 fives 0
-checking 3 tens 0 fives 0
-checking 4 tens 0 fives 0
-checking 5 tens 0 fives 1
-checking 10 tens 1 fives 1
-checking 15 tens 1 fives 2
-checking 20 tens 2 fives 2
-checking 25 memo check in fives 5
-tens 2 fives 3
-checking 30 tens 3 fives 3
-checking 35 tens 3 fives 4
-checking 40 tens 4 fives 4
-checking 45 tens 4 fives 5
-checking 50 tens 5 fives 6
-checking 55 tens 5 fives 7
-checking 60 tens 6 fives 7
-checking 65 tens 6 fives 8
-checking 70 tens 7 fives 8
-checking 75 memo check in fives 15
-tens 7 fives 10
-checking 80 tens 8 fives 10
-checking 85 tens 8 fives 11
-checking 90 tens 9 fives 11
-checking 95 tens 9 fives 12
-checking 100 memo check in tens 10
-tens 10 fives 12
-
-checking 2 tens 0 fives 0
-checking 3 tens 0 fives 0
-checking 4 tens 0 fives 0
-checking 5 tens 0 fives 1
-checking 10 tens 1 fives 1
-checking 15 tens 1 fives 2
-checking 20 tens 2 fives 2
-checking 25 tens 2 fives 4
-checking 30 tens 3 fives 4
-checking 35 tens 3 fives 5
-checking 40 tens 4 fives 5
-checking 45 tens 4 fives 6
-checking 50 tens 5 fives 7
-checking 55 tens 5 fives 8
-checking 60 tens 6 fives 8
-checking 65 tens 6 fives 9
-checking 70 tens 7 fives 9
-checking 75 tens 7 fives 11
-checking 80 tens 8 fives 11
-checking 85 tens 8 fives 12
-checking 90 tens 9 fives 12
-checking 95 tens 9 fives 13
-checking 100 tens 11 fives 13
-"""
-    
-"""
-My Solution:
-
 """
 
 """
-Fastest Solution ():
+Fastest Solution (20ms):
+[20ms submission of same solution]
 
-
-Smallest Memory ():
-
+Smallest Memory (10468 kb):
+class Solution(object):
+    def trailingZeroes(self, n):
+        return 0 if n == 0 else n / 5 + self.trailingZeroes(n / 5)
 """
