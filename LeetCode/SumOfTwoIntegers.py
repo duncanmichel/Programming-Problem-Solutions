@@ -8,9 +8,7 @@ Input: a = -2, b = 3
 Output: 1
 """
 
-class Solution(object):
-    def getSum(self, a, b):
-        def plus(x,y):
+def plus(x,y):
             carry = 0
             place = 1
             ans = 0
@@ -38,8 +36,32 @@ class Solution(object):
                 y //= 2
             return ans
         
-        def minus(x,y):
-            return 0
+        def minus(larger,smaller):
+            print(larger,"minus",smaller)
+            mask = 1
+            place = 1
+            ans = 0
+            while larger > 0 and smaller > 0:
+                ldigit = larger % 2
+                sdigit = smaller % 2
+                if not mask:
+                    if ldigit: mask = 1
+                    ldigit ^= mask
+                temp = (ldigit ^ sdigit) * place
+                ans ^= temp
+                place <<= 1
+                larger //= 2
+                smaller //= 2
+            while larger > 0:
+                ldigit = larger % 2
+                if not mask:
+                    if ldigit: mask = 1
+                    ldigit ^= mask
+                temp = ldigit * place
+                ans ^= temp
+                place <<= 1
+                larger //= 2
+            return ans
         
         astr = bin(a)
         bstr = bin(b)
