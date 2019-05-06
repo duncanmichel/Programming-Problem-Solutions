@@ -9,6 +9,29 @@ return [0, 1].
 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
+        size = len(nums)
+        
+        def halfSum(start,remainder):
+            for index in range(start,size):
+                if nums[index] == remainder:
+                    return index
+            return -1
+        
+        for numIndex in range(size):
+            #if nums[numIndex] <= target: #this might work
+            temp = halfSum(numIndex+1,target-nums[numIndex])
+            if temp >= 0:
+                return [numIndex,temp]
+        return [-1,-1]
+
+"""
+My Solution:
+Runtime: 3172 ms, faster than 28.88% of Python3 online submissions for Two Sum.
+Memory Usage: 13.6 MB, less than 46.90% of Python3 online submissions for Two Sum.
+"""
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
         count = 0
         for num in nums:
             for i in range(count+1,len(nums)):
